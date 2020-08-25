@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "565677548851",
+    "firebase_url": "https://chat-zone-80b42.firebaseio.com",
+    "project_id": "chat-zone-80b42",
+    "storage_bucket": "chat-zone-80b42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565677548851:android:74d94cbda65225b33c4a46",
+        "android_client_info": {
+          "package_name": "com.example.chat_app_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565677548851-61i0osmahk4r9nov6rrts3gc1i3f9u7k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAixHn24E7bPG0AGZAXJnVTaL6QhY1erBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565677548851-61i0osmahk4r9nov6rrts3gc1i3f9u7k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
