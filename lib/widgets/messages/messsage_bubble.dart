@@ -22,12 +22,12 @@ class MessageBubble extends StatelessWidget {
             mainAxisAlignment:
                 isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
             children: [
-              if (!isMe)
-                CircleAvatar(
-                    radius: 22, backgroundImage: NetworkImage(imageUrl)),
+//              if (!isMe)
+//                CircleAvatar(
+//                    radius: 22, backgroundImage: NetworkImage(imageUrl)),
               Flexible(
                 child: Material(
-                    elevation: 10,
+                    elevation: 5,
                     borderRadius: isMe
                         ? BorderRadius.only(
                             topLeft: Radius.circular(30),
@@ -66,9 +66,9 @@ class MessageBubble extends StatelessWidget {
                       ),
                     )),
               ),
-              if (isMe)
-                CircleAvatar(
-                    radius: 22, backgroundImage: NetworkImage(imageUrl)),
+//              if (isMe)
+//                CircleAvatar(
+//                    radius: 22, backgroundImage: NetworkImage(imageUrl)),
             ],
           )
         ],

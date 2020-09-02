@@ -1,8 +1,12 @@
+import 'package:chat_app_flutter/screens/contacts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_direction/auto_direction.dart';
+
 
 class NewMessage extends StatefulWidget {
+  NewMessage();
   @override
   _NewMessageState createState() => _NewMessageState();
 }
@@ -10,16 +14,33 @@ class NewMessage extends StatefulWidget {
 class _NewMessageState extends State<NewMessage> {
   TextEditingController messageController = new TextEditingController();
   var _enteredMessage = '';
+  bool _isRTL = false;
 
   void _sendMessage() async {
-    final user=await FirebaseAuth.instance.currentUser();
-    final userData=await Firestore.instance.collection('users').document(user.uid).get();
-    Firestore.instance.collection('chat').add({
-      'username' :userData['username'],
+    final user = await FirebaseAuth.instance.currentUser();
+    final userData =
+        await Firestore.instance.collection('users').document(user.uid).get();
+
+    Firestore.instance
+        .collection('chat/${user.uid}' + '$friendUid/messages')
+        .add({
+      'username': userData['username'],
       'text': _enteredMessage,
       'time': Timestamp.now(),
-      'userId' : user.uid,
-       'image_url' : userData['image_url']});
+      'userId': user.uid,
+      'image_url': userData['image_url']
+    });
+
+    Firestore.instance
+        .collection('chat/$friendUid' + '${user.uid}/messages')
+        .add({
+      'username': userData['username'],
+      'text': _enteredMessage,
+      'time': Timestamp.now(),
+      'userId': user.uid,
+      'image_url': userData['image_url']
+    });
+
     messageController.clear();
     _enteredMessage = '';
   }
@@ -33,18 +54,26 @@ class _NewMessageState extends State<NewMessage> {
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(left: 15),
-              child: TextFormField(
-                controller: messageController,
-                textInputAction: TextInputAction.send,
-                decoration: InputDecoration(
-                    hintText: ('Send a message...'),
-                    labelStyle: TextStyle(color: Colors.black)),
-                onChanged: (value) {
-                  setState(() {
-                    _enteredMessage = value;
-                    value = '';
-                  });
-                },
+              child: AutoDirection(
+                text: _enteredMessage,
+                  onDirectionChange: (isRTL){
+                    setState(() {
+                      this._isRTL = isRTL;
+                    });
+                  },
+                child: TextFormField(
+                  controller: messageController,
+                  textInputAction: TextInputAction.send,
+                  decoration: InputDecoration(
+                      hintText: ('Send a message...'),
+                      labelStyle: TextStyle(color: Colors.black)),
+                  onChanged: (value) {
+                    setState(() {
+                      _enteredMessage = value;
+                      value = '';
+                    });
+                  },
+                ),
               ),
             ),
           ),

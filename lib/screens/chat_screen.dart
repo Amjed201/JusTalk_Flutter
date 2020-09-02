@@ -1,8 +1,7 @@
 import 'package:chat_app_flutter/widgets/auth/Logout.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:chat_app_flutter/widgets/messages/newMessageField.dart';
+import 'package:chat_app_flutter/widgets/messages/messages.dart';
 import 'contacts.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -11,91 +10,44 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-
   @override
   Widget build(BuildContext context) {
+    Map _userData = ModalRoute.of(context).settings.arguments;
+    String _username = _userData['username'];
+    String _userImage = _userData['userImage'];
+
     return Scaffold(
         appBar: AppBar(
-          title: Text('$userNameTitle'),
-         actions: [Logout()],
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconButton(
+                  alignment: Alignment.centerLeft,
+                  icon: Icon(Icons.arrow_back_ios),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/Contacts');
+                  }),
+              SizedBox(
+                width: 5,
+              ),
+              CircleAvatar(
+                radius: 25,
+                backgroundImage: NetworkImage(_userImage),
+              ),
+              SizedBox(width: 10),
+              Text(
+                '$_username',
+                style: TextStyle(fontFamily: 'futurist', fontSize: 25),
+              ),
+            ],
+          ),
+          actions: [Logout()],
         ),
         body: Container(
           child: Column(
-            children: [Expanded(child: PrivateMessages()), NewPrivateMessage()],
+            children: [Expanded(child: Messages()), NewMessage()],
           ),
         ));
-  }
-}
-
-class NewPrivateMessage extends StatefulWidget {
-  @override
-  _NewPrivateMessageState createState() => _NewPrivateMessageState();
-}
-
-class _NewPrivateMessageState extends State<NewPrivateMessage> {
-  TextEditingController messageController = new TextEditingController();
-  var _enteredMessage = '';
-
-  void _sendMessage() async {
-    final user = await FirebaseAuth.instance.currentUser();
-    final userData =
-        await Firestore.instance.collection('users').document(user.uid).get();
-
-    Firestore.instance
-        .collection('chat/${user.uid}' + '$friendUid/messages')
-        .add({
-      'username': userData['username'],
-      'text': _enteredMessage,
-      'time': Timestamp.now(),
-      'userId': user.uid,
-      'image_url': userData['image_url']
-    });
-
-    Firestore.instance
-        .collection('chat/$friendUid' + '${user.uid}/messages')
-        .add({
-      'username': userData['username'],
-      'text': _enteredMessage,
-      'time': Timestamp.now(),
-      'userId': user.uid,
-      'image_url': userData['image_url']
-    });
-
-    messageController.clear();
-    _enteredMessage = '';
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(left: 15),
-              child: TextFormField(
-                controller: messageController,
-                textInputAction: TextInputAction.send,
-                decoration: InputDecoration(
-                    hintText: ('Send a message...'),
-                    labelStyle: TextStyle(color: Colors.black)),
-                onChanged: (value) {
-                  setState(() {
-                    _enteredMessage = value;
-                    value = '';
-                  });
-                },
-              ),
-            ),
-          ),
-          IconButton(
-            icon: Icon(Icons.send),
-            color: Color(0xff058af7),
-            onPressed: _enteredMessage.trim().isEmpty ? null : _sendMessage,
-          )
-        ],
-      ),
-    );
   }
 }

@@ -1,7 +1,10 @@
+import 'package:chat_app_flutter/screens/contacts.dart';
 import 'package:chat_app_flutter/widgets/messages/messsage_bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+ FirebaseUser _user;
 
 class Messages extends StatefulWidget {
   @override
@@ -9,9 +12,14 @@ class Messages extends StatefulWidget {
 }
 
 class _MessagesState extends State<Messages> {
+  void getCurrentUser() async {
+    _user = await FirebaseAuth.instance.currentUser();
+  }
+
   @override
   void initState() {
     // TODO: implement initState
+    getCurrentUser();
     super.initState();
   }
 
@@ -27,7 +35,7 @@ class _MessagesState extends State<Messages> {
         }
         return StreamBuilder(
             stream: Firestore.instance
-                .collection('chat')
+                .collection('chat/${_user.uid}' + '$friendUid/messages')
                 .orderBy('time', descending: true)
                 .snapshots(),
             builder: (ctx, streamSnapshot) {

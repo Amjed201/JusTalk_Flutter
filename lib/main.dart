@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         '/Welcome': (context) => WelcomeScreen(),
         '/Login': (context) => LoginScreen(),
         '/Register': (context) => RegisterScreen(),
-        '/PrivateChat': (context) => ChatScreen(),
+        '/Chat': (context) => ChatScreen(),
       },
       home: StreamBuilder(
           stream: FirebaseAuth.instance.onAuthStateChanged,
