@@ -14,8 +14,8 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:icon="@mipmap/JusTalk"
-        android:label="justalk_icon"
+        android:icon="@mipmap/justalk_icon"
+        android:label="JusTalk"
         android:requestLegacyExternalStorage="true"
         tools:targetApi="q">
 
