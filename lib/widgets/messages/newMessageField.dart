@@ -6,7 +6,8 @@ import 'package:auto_direction/auto_direction.dart';
 
 
 class NewMessage extends StatefulWidget {
-  NewMessage();
+  String _friendUid;
+  NewMessage(this._friendUid);
   @override
   _NewMessageState createState() => _NewMessageState();
 }
@@ -22,7 +23,7 @@ class _NewMessageState extends State<NewMessage> {
         await Firestore.instance.collection('users').document(user.uid).get();
 
     Firestore.instance
-        .collection('chat/${user.uid}' + '$friendUid/messages')
+        .collection('chat/${user.uid}' + '${widget._friendUid}/messages')
         .add({
       'username': userData['username'],
       'text': _enteredMessage,
@@ -32,7 +33,7 @@ class _NewMessageState extends State<NewMessage> {
     });
 
     Firestore.instance
-        .collection('chat/$friendUid' + '${user.uid}/messages')
+        .collection('chat/${widget._friendUid}' + '${user.uid}/messages')
         .add({
       'username': userData['username'],
       'text': _enteredMessage,

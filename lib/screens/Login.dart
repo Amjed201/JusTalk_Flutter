@@ -28,6 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
         email: email,
         password: password,
       );
+
+
       AuthForm.btnController.success();
       Timer(Duration(milliseconds: 500), () {
         Navigator.pushNamedAndRemoveUntil(context, '/Contacts', (_) => false);

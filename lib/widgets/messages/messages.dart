@@ -4,9 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
- FirebaseUser _user;
+FirebaseUser _user;
 
 class Messages extends StatefulWidget {
+  String _friendUid;
+
+  Messages(this._friendUid);
+
   @override
   _MessagesState createState() => _MessagesState();
 }
@@ -35,7 +39,7 @@ class _MessagesState extends State<Messages> {
         }
         return StreamBuilder(
             stream: Firestore.instance
-                .collection('chat/${_user.uid}' + '$friendUid/messages')
+                .collection('chat/${_user.uid}' + '${widget._friendUid}/messages')
                 .orderBy('time', descending: true)
                 .snapshots(),
             builder: (ctx, streamSnapshot) {
