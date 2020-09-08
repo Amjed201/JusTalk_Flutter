@@ -1,6 +1,6 @@
 import 'package:chat_app_flutter/search/search_delegate.dart';
 import 'package:chat_app_flutter/widgets/auth/Logout.dart';
-import 'package:chat_app_flutter/widgets/contact_item.dart';
+import 'file:///C:/Users/amjed/Desktop/ANDROID%20APPS/chat_app_flutter/lib/widgets/contacts/contact_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
