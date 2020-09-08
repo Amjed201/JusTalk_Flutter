@@ -39,7 +39,8 @@ class _MessagesState extends State<Messages> {
         }
         return StreamBuilder(
             stream: Firestore.instance
-                .collection('chat/${_user.uid}' + '${widget._friendUid}/messages')
+                .collection(
+                    'chat/${_user.uid}' + '${widget._friendUid}/messages')
                 .orderBy('time', descending: true)
                 .snapshots(),
             builder: (ctx, streamSnapshot) {
@@ -54,9 +55,12 @@ class _MessagesState extends State<Messages> {
                 itemCount: chatDocs.length,
                 itemBuilder: (ctx, index) => MessageBubble(
                   username: chatDocs[index]['username'],
-                  text: chatDocs[index]['text'],
+                  text: chatDocs[index]['text'] == null
+                      ? ''
+                      : chatDocs[index]['text'],
                   imageUrl: chatDocs[index]['image_url'],
                   isMe: chatDocs[index]['userId'] == futureSnapshot.data.uid,
+                  sharedImage: chatDocs[index]['sharedImage'],
                 ),
               );
             });

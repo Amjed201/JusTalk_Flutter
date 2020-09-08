@@ -6,8 +6,10 @@ class MessageBubble extends StatelessWidget {
   final String username;
   final bool isMe;
   final String imageUrl;
+  final String sharedImage;
 
-  MessageBubble({this.username, this.text, this.imageUrl, this.isMe});
+  MessageBubble(
+      {this.username, this.text, this.imageUrl, this.isMe, this.sharedImage});
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +45,19 @@ class MessageBubble extends StatelessWidget {
                             ? CrossAxisAlignment.end
                             : CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            text,
-                            style: TextStyle(
-                                letterSpacing: 1,
-                                color: isMe ? Colors.white : Colors.black,
-                                fontSize: 20),
-                          ),
+                          sharedImage == null
+                              ? Text(
+                                  text,
+                                  style: TextStyle(
+                                      letterSpacing: 1,
+                                      color: isMe ? Colors.white : Colors.black,
+                                      fontSize: 20),
+                                )
+                              : Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7,
+                                  child: Image.network(sharedImage,fit: BoxFit.cover,) ,
+                                ),
                         ],
                       ),
                     )),
