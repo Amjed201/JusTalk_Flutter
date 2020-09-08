@@ -1,6 +1,6 @@
 # JusTalk 
 
-simple chat Flutter application.
+simple Flutter chat application.
 
 ## Getting Started
 
