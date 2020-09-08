@@ -22,9 +22,6 @@ class MessageBubble extends StatelessWidget {
             mainAxisAlignment:
                 isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
             children: [
-//              if (!isMe)
-//                CircleAvatar(
-//                    radius: 22, backgroundImage: NetworkImage(imageUrl)),
               Flexible(
                 child: Material(
                     elevation: 5,
@@ -47,15 +44,6 @@ class MessageBubble extends StatelessWidget {
                             : CrossAxisAlignment.start,
                         children: [
                           Text(
-                            username,
-                            style: TextStyle(
-                              letterSpacing: 0.5,
-                              fontSize: 16,
-                              color: isMe ? Colors.yellow : Colors.orangeAccent,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
                             text,
                             style: TextStyle(
                                 letterSpacing: 1,
@@ -66,9 +54,6 @@ class MessageBubble extends StatelessWidget {
                       ),
                     )),
               ),
-//              if (isMe)
-//                CircleAvatar(
-//                    radius: 22, backgroundImage: NetworkImage(imageUrl)),
             ],
           )
         ],

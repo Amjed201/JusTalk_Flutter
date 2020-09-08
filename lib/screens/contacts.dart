@@ -62,7 +62,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                       flex: 2,
                     ),
                     Text(
-                      'TALKERS',
+                      'Chats',
                       style: TextStyle(fontFamily: 'futurist', fontSize: 25),
                     ),
                     Spacer(

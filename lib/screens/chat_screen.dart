@@ -18,36 +18,40 @@ class _ChatScreenState extends State<ChatScreen> {
     String _userImage = _userData['userImage'];
     String _friendUid = _userData['friend_id'];
 
-    //                    Navigator.pushReplacementNamed(context, '/Contacts');
 
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: false,
-          automaticallyImplyLeading: false,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              IconButton(
-                  alignment: Alignment.centerLeft,
-                  icon: Icon(Icons.arrow_back_ios),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-              Text(
-                '$_username',
-                style: TextStyle(fontFamily: 'futurist', fontSize: 25),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 2.0),
-                child: CircleAvatar(
-                  radius: 25,
-                  backgroundImage: NetworkImage(_userImage),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65),
+          child: AppBar(
+            centerTitle: false,
+            automaticallyImplyLeading: false,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                    alignment: Alignment.bottomLeft,
+                    icon: Icon(Icons.arrow_back_ios),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
+                Padding(
+                  padding: const EdgeInsets.only(top: 6.0),
+                  child: Text(
+                    '$_username',
+                    style: TextStyle(fontFamily: 'futurist', fontSize: 30),
+                  ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 8, top: 8),
+                  child: CircleAvatar(
+                    radius: 25,
+                    backgroundImage: NetworkImage(_userImage),
+                  ),
+                ),
+              ],
+            ),
           ),
-
         ),
         body: Container(
           child: Column(
